@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -10,11 +10,18 @@ function App() {
   const [submittedData, setSubmittedData] = useState([])
   const [currentPage, setCurrentPage] = useState('form')
 
+  useEffect(() => {
+    // Trigger page browse event on page load
+    if (window.smartech) {
+      window.smartech('dispatch', 'page browse', {})
+    }
+  }, [])
+
   const handleChange = (e) => {
-    const { fullName, value } = e.target
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [fullName]: value
+      [name]: value
     }))
   }
 
